@@ -1,8 +1,5 @@
 module WebStat
   class Fetch
-    MIN_LENGTH_OF_META_TITLE = 10
-    REGEX_TO_SPRIT_TITLE = '\||-|:|｜|：|〜|\~| – '
-    
     attr_accessor :url
     
     # initialize class
