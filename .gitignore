@@ -12,3 +12,4 @@
 
 # builded gems
 *.gem
+/config
