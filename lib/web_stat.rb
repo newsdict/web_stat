@@ -1,6 +1,8 @@
 require "web_stat/version"
+require "web_stat/errors"
+require "bundler"
+require "web_stat/fetch"
+require "web_stat/tag"
 
-module WebStat
-  class Error < StandardError; end
-  # Your code goes here...
+module Webstat
 end
