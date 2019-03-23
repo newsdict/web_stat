@@ -36,5 +36,12 @@ RSpec.describe WebStat::Fetch do
         expect(web_stat.eyecatch_image_path).to be_string_or_nil
       end
     end
+    
+    it "Get local path of eyecatch image by #{fetch[:class].to_s}" do
+      fetch[:fixture].each do |fixture|
+        web_stat = fetch[:class].new(fixture)
+        expect(web_stat.stat[:eyecatch_image_path]).to be_tmp_file_or_nil
+      end
+    end
   end
 end

@@ -1,9 +1,11 @@
+require 'uri'
+require 'digest'
 require 'nokogiri'
 require 'ruby-readability'
 require 'final_redirect_url'
 module WebStat
   class Fetch
-    attr_accessor :html, :nokogiri
+    attr_accessor :html, :nokogiri, :original_url
     
     # Get title
     # @return [String] title
@@ -43,7 +45,34 @@ module WebStat
           break
         end
       end
+      if @url && path.is_a?(String) && !path.match(/^http/) 
+        if path.match(/^\//)
+          path = "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
+        else
+          path = "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}/#{URI.parse(@url).path}/#{path}"
+        end
+      end
       path
+    end
+    
+    # Get local path to save url
+    # @param [String] url
+    def save_local_path(url)
+      return nil if url.nil? || !url.match(/^http/)
+      tmp_file = "/tmp/#{Digest::SHA1.hexdigest(url)}"
+      File.open(tmp_file, "w") do |_file|
+        _file.puts(get_url(url))
+      end
+      tmp_file
+    end
+    
+    # Get url
+    # @param [String] url
+    def get_url(url)
+      agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
+      # Enable to read Robots.txt
+      agent.robots = true
+      agent.get(url, [], nil, { 'Accept-Language' => 'ja'}).body
     end
     
     # Get the informations of @url
@@ -53,7 +82,7 @@ module WebStat
         site_name: site_name,
         content: content,
         url: original_url,
-        eyecatch_image_path: eyecatch_image_path
+        eyecatch_image_path: save_local_path(eyecatch_image_path)
       }
     end
   end

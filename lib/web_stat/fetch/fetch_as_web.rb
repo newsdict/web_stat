@@ -7,10 +7,7 @@ module WebStat
     # @param [String] url
     def initialize(url)
       @url = url
-      agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
-      # Enable to read Robots.txt
-      agent.robots = true
-      @html = agent.get(original_url, [], nil, { 'Accept-Language' => 'ja'}).body.force_encoding("utf-8")
+      @html = get_url(url).force_encoding("utf-8")
       @nokogiri = ::Nokogiri::HTML(@html)
     end
     

@@ -15,7 +15,12 @@ RSpec.configure do |config|
 end
 RSpec::Matchers.define :be_string_or_nil do |expected|
   match do |actual|
-    expected.is_a?(String) || expected.nil?
+    actual.is_a?(String) || actual.nil? 
+  end
+end
+RSpec::Matchers.define :be_tmp_file_or_nil do |expected|
+  match do |actual|
+    (actual.is_a?(String) && actual.match(/^\/tmp/)) || actual.nil?
   end
 end
 
