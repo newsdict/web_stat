@@ -3,12 +3,6 @@ module WebStat
   class Fetch
     attr_accessor :html
     
-    # initialize class
-    # @param [String] html
-    def initialize(html)
-      @html = html
-    end
-    
     # Get html
     # @return [String] HTML
     def get_html; end
