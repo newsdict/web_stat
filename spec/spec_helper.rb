@@ -22,9 +22,11 @@ module WebStatTestHelper
       end
     end
     
-    # one html
-    def html
-      htmls.first
+    # htmls of fixture
+    def scheme_and_files
+      Dir.glob(File.join(File.dirname(__FILE__), "fixtures", "htmls", "*.html")).map do |file|
+        "file://#{file}"
+      end
     end
   end
 end

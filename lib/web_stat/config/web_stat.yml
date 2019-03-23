@@ -2,3 +2,5 @@
 min_length_of_meta_title: 10
 # Split regular expression for titles 
 regex_to_sprit_title: '\||-|:|｜|：|〜|\~| – '
+# User Agent
+user_agent: "web_stat gem agent"
