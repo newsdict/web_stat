@@ -19,11 +19,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
-  spec.add_development_dependency "bundler", "~> 2.0"
+  
+  spec.add_runtime_dependency   "bundler", "~> 2.0"
+  spec.add_runtime_dependency  "nokogiri", "~> 1.10"
+  spec.add_runtime_dependency  "mechanize", "~> 2.7"
+  spec.add_runtime_dependency  "ruby-readability", "~> 0.7"
+  spec.add_runtime_dependency  "final_redirect_url", "~> 0.1.0"
+  
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "nokogiri", "~> 1.10"
-  spec.add_development_dependency "mechanize", "~> 2.7"
-  spec.add_development_dependency "ruby-readability", "~> 0.7"
-  spec.add_development_dependency "final_redirect_url", "~> 0.1.0"
 end
