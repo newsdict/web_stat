@@ -12,3 +12,19 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+module WebStatTestHelper
+  class << self
+    # htmls of fixture
+    def htmls
+      Dir.glob(File.join(File.dirname(__FILE__), "fixtures", "htmls", "*.html")).map do |file|
+        File.open(file).read
+      end
+    end
+    
+    # one html
+    def html
+      htmls.first
+    end
+  end
+end

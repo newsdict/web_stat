@@ -1,10 +1,12 @@
+require 'nokogiri'
 module WebStat
   class Fetch
-    attr_accessor :url
+    attr_accessor :html
     
     # initialize class
-    def initialize(url)
-      @url = url
+    # @param [String] html
+    def initialize(html)
+      @html = html
     end
     
     # Get html
@@ -13,10 +15,29 @@ module WebStat
     
     # Get title
     # @return [String] title
-    def title; end
+    def title
+      document = ::Nokogiri::HTML(@html)
+      begin
+        title = document.title.split(/#{WebStat::Configure.get["regex_to_sprit_title"]}/, 2).first
+        if title.length < WebStat::Configure.get["min_length_of_meta_title"]
+          title = document.css("h1").first.content
+        end
+      rescue
+        title = document.title
+      end
+      title.strip
+    end
     
     # Get name of domain 
-    def site_name; end
+    def site_name
+      document = ::Nokogiri::HTML(@html)
+      begin
+        site_name = document.title.split(/#{WebStat::Configure.get["regex_to_sprit_title"]}/, 2).last
+      rescue
+        site_name = document.title
+      end
+      site_name.strip
+    end
       
     # Get main section
     def content; end
