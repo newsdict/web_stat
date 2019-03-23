@@ -24,4 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "nokogiri", "~> 1.10"
   spec.add_development_dependency "mechanize", "~> 2.7"
+  spec.add_development_dependency "ruby-readability", "~> 0.7"
+  spec.add_development_dependency "final_redirect_url", "~> 0.1.0"
 end

@@ -1,3 +1,4 @@
+require 'rspec/expectations'
 require "bundler/setup"
 require "web_stat"
 
@@ -10,6 +11,11 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+end
+RSpec::Matchers.define :be_string_or_nil do |expected|
+  match do |actual|
+    expected.is_a?(String) || expected.nil?
   end
 end
 
