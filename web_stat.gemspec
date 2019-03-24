@@ -20,11 +20,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
   
-  spec.add_runtime_dependency   "bundler", "~> 2.0"
-  spec.add_runtime_dependency  "nokogiri", "~> 1.10"
-  spec.add_runtime_dependency  "mechanize", "~> 2.7"
-  spec.add_runtime_dependency  "ruby-readability", "~> 0.7"
-  spec.add_runtime_dependency  "final_redirect_url", "~> 0.1.0"
+  spec.add_runtime_dependency "bundler", "~> 2.0"
+  spec.add_runtime_dependency "nokogiri", "~> 1.10"
+  spec.add_runtime_dependency "mechanize", "~> 2.7"
+  spec.add_runtime_dependency "ruby-readability", "~> 0.7"
+  spec.add_runtime_dependency "final_redirect_url", "~> 0.1.0"
+  spec.add_runtime_dependency "natto", "~> 1.1.2"
   
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"

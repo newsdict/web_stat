@@ -4,6 +4,22 @@ Welcome to your new gem! In this directory, you'll find the files you need to be
 
 TODO: Delete this and the text above, and describe your gem
 
+## Requirements
+
+-  [MeCab _0.996_](http://taku910.github.io/mecab/#download)
+- add runtime dependency
+ - "bundler", "~> 2.0"
+ - "nokogiri", "~> 1.10"
+ - "mechanize", "~> 2.7"
+ - "ruby-readability", "~> 0.7"
+ - "final_redirect_url", "~> 0.1.0"
+ - "natto", "~> 1.1.2"
+- add development dependency
+ - "rake", "~> 10.0"
+ - "rspec", "~> 3.0"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec", "~> 3.0"
+
 ## Installation
 
 Add this line to your application's Gemfile:
