@@ -1,5 +1,6 @@
 require 'uri'
 require 'digest'
+require 'sanitize'
 require 'nokogiri'
 require 'ruby-readability'
 require 'final_redirect_url'
@@ -33,7 +34,7 @@ module WebStat
       
     # Get main section
     def content
-      Readability::Document.new(@html).content  
+      Sanitize.clean(Readability::Document.new(@html).content)
     end
       
     # Get temporary path of image

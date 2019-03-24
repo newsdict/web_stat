@@ -8,11 +8,13 @@ PATH
       natto (~> 1.1.2)
       nokogiri (~> 1.10)
       ruby-readability (~> 0.7)
+      sanitize (~> 5.0.0)
 
 GEM
   remote: https://rubygems.org/
   specs:
     connection_pool (2.2.2)
+    crass (1.0.4)
     diff-lcs (1.3)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
@@ -41,6 +43,8 @@ GEM
       connection_pool (~> 2.2)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    nokogumbo (2.0.1)
+      nokogiri (~> 1.8, >= 1.8.4)
     ntlm-http (0.1.1)
     rake (10.5.0)
     rspec (3.8.0)
@@ -59,6 +63,10 @@ GEM
     ruby-readability (0.7.0)
       guess_html_encoding (>= 0.0.4)
       nokogiri (>= 1.6.0)
+    sanitize (5.0.0)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.8.0)
+      nokogumbo (~> 2.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)

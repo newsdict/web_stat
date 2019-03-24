@@ -11,7 +11,9 @@ module WebStat
     def nouns
       words = []
       @natto_mecab.parse(@article) do |n|
-        words << n.surface unless n.surface.empty?
+        if n.feature =~ /^名詞/ && !n.surface.empty?
+          words << n.surface
+        end
       end
       words
     end

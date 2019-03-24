@@ -31,14 +31,19 @@ end
 
 module WebStatTestHelper
   class << self
-    # htmls of fixture
+    # Get htmls of fixture
     def htmls
       Dir.glob(File.join(File.dirname(__FILE__), "fixtures", "htmls", "*.html")).map do |file|
         File.open(file).read
       end
     end
     
-    # htmls of fixture
+    # Get html of fixture by name
+    def html(name)
+      File.open(File.join(File.dirname(__FILE__), "fixtures", "htmls", "#{name}")).read
+    end
+    
+    # Get htmls of fixture
     def scheme_and_files
       Dir.glob(File.join(File.dirname(__FILE__), "fixtures", "htmls", "*.html")).map do |file|
         "file://#{file}"

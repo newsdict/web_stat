@@ -30,6 +30,13 @@ RSpec.describe WebStat::Fetch do
       end
     end
     
+    it "WebStat content do not include html by #{fetch[:class].to_s}" do
+      fetch[:fixture].each do |fixture|
+        web_stat = fetch[:class].new(fixture)
+        expect(Sanitize.clean(web_stat.content).length).to eq web_stat.content.length
+      end
+    end
+    
     it "Get eyecatch image path by #{fetch[:class].to_s}" do
       fetch[:fixture].each do |fixture|
         web_stat = fetch[:class].new(fixture)
