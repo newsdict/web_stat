@@ -1,3 +1,3 @@
 module WebStat
-  class PageIsNotFoundError < StandardError; end
+  # Unimplemented
 end

@@ -78,12 +78,14 @@ module WebStat
     
     # Get the informations of @url
     def stat
+      tag = WebStat::Tag.new(content)
       {
         title: title,
         site_name: site_name,
         content: content,
         url: original_url,
-        eyecatch_image_path: save_local_path(eyecatch_image_path)
+        eyecatch_image_path: save_local_path(eyecatch_image_path),
+        tags: tag.nouns
       }
     end
   end
