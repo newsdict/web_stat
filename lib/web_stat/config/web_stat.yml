@@ -1,0 +1,13 @@
+# Minimum number of characters to detect meta title
+min_length_of_meta_title: 10
+# Split regular expression for titles 
+regex_to_sprit_title: '\||-|:|｜|：|〜|\~| – '
+# User Agent
+user_agent: "web_stat gem agent"
+# Eyecatch image xpaths
+eyecatch_image_xpaths:
+  - '/html/head/meta[@property="twitter:image"]/@content'
+  - '/html/head/meta[@property="og:image"]/@content'
+  - '//img[@class="attachment-post-thumbnail"]/@src'
+  - '//div[@id="content"]//img/@src'
+  - '//img/@src'
