@@ -9,13 +9,14 @@ module WebStat
     end
     
     def nouns
-      words = []
+      words = Hash.new
       @natto_mecab.parse(@article) do |n|
-        if n.feature =~ /^名詞/ && !n.surface.empty?
-          words << n.surface
+        if n.feature =~ /固有名詞/ && !n.surface.empty?
+          words[n.surface] = 1 unless words[n.surface]
+          words[n.surface] += 1
         end
       end
-      words
+      words.keys
     end
   end
 end
