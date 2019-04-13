@@ -15,8 +15,8 @@ Fetch the web pages and stat.
 - add development dependency
  - "rake", "~> 10.0"
  - "rspec", "~> 3.0"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+- "rake", "~> 10.0"
+- "rspec", "~> 3.0"
 
 ## Installation
 
@@ -41,3 +41,7 @@ you can customize web_stat config.
 And then execute:
 
     $ rake web_stat:install
+
+### spec
+
+  $ rake spec
