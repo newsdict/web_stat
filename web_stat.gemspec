@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description   = <<-EOS.strip.gsub(/\s+/, ' ')
     Fetch the web pages and stat.
   EOS
-  spec.homepage      = 'https://newsdict.blog/web-stat/'
+  spec.homepage      = "https://github.com/newsdict/web_stat"
   spec.license       = "MIT"
   spec.files         = `git ls-files -z`.split("\x0")
   spec.bindir        = "bin"
