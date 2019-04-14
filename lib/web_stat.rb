@@ -7,8 +7,6 @@ require "web_stat/tag"
 require "web_stat/version"
 require "web_stat/fetch/fetch_as_html"
 require "web_stat/fetch/fetch_as_web"
-require "web_stat/fetch/fetch_as_web"
-load "web_stat/tasks/install.rake"
 
 module WebStat
   class << self
