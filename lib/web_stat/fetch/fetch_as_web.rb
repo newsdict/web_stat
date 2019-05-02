@@ -7,7 +7,7 @@ module WebStat
     # @param [String] url
     def initialize(url)
       @url = original_url(url)
-      @html = get_url(url)
+      @html = get_url(@url)
       @nokogiri = ::Nokogiri::HTML(@html)
     end
   end
