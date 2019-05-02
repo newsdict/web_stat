@@ -11,9 +11,14 @@ require "web_stat/fetch/fetch_as_web"
 module WebStat
   class << self
     # Get web page's stat by url
-    def stat_by_url(url)
+    def stat_by_web(url)
       web_stat = WebStat::FetchAsWeb.new(url)
       web_stat.stat
+    end
+
+    # Get web page's stat by url
+    def stat_by_url(url)
+      stat_by_web(url)
     end
     
     # Get web page's stat by html

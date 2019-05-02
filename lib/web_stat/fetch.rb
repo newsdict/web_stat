@@ -2,6 +2,7 @@ require 'uri'
 require 'digest'
 require 'sanitize'
 require 'nokogiri'
+require 'open-uri'
 require 'ruby-readability'
 require 'final_redirect_url'
 module WebStat
@@ -61,8 +62,10 @@ module WebStat
     def save_local_path(url)
       return nil if url.nil? || !url.match(/^http/)
       tmp_file = "/tmp/#{Digest::SHA1.hexdigest(url)}"
-      File.open(tmp_file, "w") do |_file|
-        _file.puts(get_url(url))
+      open(original_url(url)) do |remote_file|
+        File.open(tmp_file, "w+b") do |_file|
+          _file.puts(remote_file.read)
+        end
       end
       tmp_file
     end
@@ -83,10 +86,22 @@ module WebStat
         title: title,
         site_name: site_name,
         content: content,
-        url: original_url,
+        url: @url,
         eyecatch_image_path: save_local_path(eyecatch_image_path),
         tags: tag.nouns
       }
+    end
+
+    private
+
+    # Get original url
+    # @param [String] url
+    def original_url(url)
+      if url.match(/^http/)
+        FinalRedirectUrl.final_redirect_url(url)
+      else
+        url
+      end
     end
   end
 end
