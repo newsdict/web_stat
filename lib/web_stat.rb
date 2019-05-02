@@ -1,7 +1,12 @@
 require "bundler"
-Dir.glob("**/*.rb", base: 'lib').each do |file|
-  require(file)
-end
+require "web_stat/categorize"
+require "web_stat/configure"
+require "web_stat/errors"
+require "web_stat/fetch"
+require "web_stat/tag"
+require "web_stat/version"
+require "web_stat/fetch/fetch_as_html"
+require "web_stat/fetch/fetch_as_web"
 
 module WebStat
   class << self
