@@ -1,5 +1,6 @@
 require 'rspec/expectations'
 require "bundler/setup"
+require 'pry'
 require "web_stat"
 
 RSpec.configure do |config|

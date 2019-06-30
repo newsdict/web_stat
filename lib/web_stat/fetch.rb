@@ -7,7 +7,7 @@ require 'ruby-readability'
 require 'final_redirect_url'
 module WebStat
   class Fetch
-    attr_accessor :html, :nokogiri, :original_url
+    attr_accessor :html, :nokogiri
     
     # Get title
     # @return [String] title
