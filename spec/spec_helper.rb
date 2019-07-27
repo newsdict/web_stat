@@ -3,6 +3,10 @@ require "bundler/setup"
 require 'pry'
 require "web_stat"
 
+require 'webmock'
+include WebMock::API
+WebMock.enable!
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -47,8 +51,32 @@ module WebStatTestHelper
     # Get htmls of fixture
     def scheme_and_files
       Dir.glob(File.join(File.dirname(__FILE__), "fixtures", "htmls", "*.html")).map do |file|
-        "file://#{file}"
+	"https://newsdict.blog/#{File.basename(file)}"
       end
     end
   end
 end
+
+# Set webmock
+WebStatTestHelper.scheme_and_files.each do |url|
+  WebMock.stub_request(:get, url)
+    .to_return(
+      status: 200,
+      body: File.new(File.join(File.dirname(__FILE__), "fixtures", "htmls", File.basename(url))),
+      headers: {content_type: 'application/html; charset=utf-8'})
+end
+
+WebMock.stub_request(:get, "https://newsdict.blog/robots.txt")
+    .to_return(
+      status: 200,
+      body: "User-agent: *
+Sitemap: https://newsdict.blog/sitemap.xml
+Disallow: /ghost/
+Disallow: /p/",
+      headers: {content_type: 'application/html; charset=utf-8'})
+
+WebMock.stub_request(:get, "https://newsdict.blog/content/images/size/w100/2019/03/facebook-3.jpg")
+    .to_return(
+      status: 200,
+      body: File.new(File.join(File.dirname(__FILE__), "fixtures", "images", "facebook-3.jpg")),
+      headers: {content_type: 'application/html; charset=utf-8'})

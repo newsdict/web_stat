@@ -7,8 +7,8 @@ require 'ruby-readability'
 require 'final_redirect_url'
 module WebStat
   class Fetch
-    attr_accessor :html, :nokogiri
-    
+    attr_accessor :url, :html, :nokogiri
+
     # Get title
     # @return [String] title
     def title
@@ -40,6 +40,7 @@ module WebStat
       
     # Get temporary path of image
     def eyecatch_image_path
+      # Reuse `path` in this method
       path = nil
       WebStat::Configure.get["eyecatch_image_xpaths"].each do |xpath|
         if @nokogiri.xpath(xpath).first.respond_to?(:value)
@@ -47,20 +48,15 @@ module WebStat
           break
         end
       end
-      if @url && path.is_a?(String) && !path.match(/^http/) 
-        if path.match(/^\//)
-          path = "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
-        else
-          path = "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}/#{URI.parse(@url).path}/#{path}"
-        end
+      if path.match(/^\//)
+        "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
       end
-      path
     end
     
     # Get local path to save url
     # @param [String] url
     def save_local_path(url)
-      return nil if url.nil? || !url.match(/^http/)
+      return nil if url.nil?
       tmp_file = "/tmp/#{Digest::SHA1.hexdigest(url)}"
       open(original_url(url)) do |remote_file|
         File.open(tmp_file, "w+b") do |_file|

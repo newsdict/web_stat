@@ -45,3 +45,7 @@ And then execute:
 ### spec
 
   $ rake spec
+
+Test a file
+
+  $ bundle exec rspec  spec/web_stat/fetch_spec.rb 
