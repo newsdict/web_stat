@@ -80,3 +80,9 @@ WebMock.stub_request(:get, "https://newsdict.blog/content/images/size/w100/2019/
       status: 200,
       body: File.new(File.join(File.dirname(__FILE__), "fixtures", "images", "facebook-3.jpg")),
       headers: {content_type: 'application/html; charset=utf-8'})
+
+WebMock.stub_request(:get, "https://cdn.newsdict.jp/assets/newsdict-5d8601394c3f4eea2d7161ab92ab327ac7099e22214c853327011b3a71859b8e.png")
+    .to_return(
+        status: 200,
+        body: File.new(File.join(File.dirname(__FILE__), "fixtures", "images", "newsdict-5d8601394c3f4eea2d7161ab92ab327ac7099e22214c853327011b3a71859b8e.png")),
+        headers: {content_type: 'application/html; charset=utf-8'})

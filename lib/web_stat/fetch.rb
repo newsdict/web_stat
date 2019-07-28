@@ -50,6 +50,8 @@ module WebStat
       end
       if path.match(/^\//)
         "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
+      else
+        path
       end
     end
     
