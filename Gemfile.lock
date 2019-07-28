@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    web_stat (0.1.8)
+    web_stat (0.1.10)
       bundler (~> 2.0)
       final_redirect_url (~> 0.1.0)
       mechanize (~> 2.7)
