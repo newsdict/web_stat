@@ -24,7 +24,11 @@ module WebStat
     
     # Get custom configure path
     def self.get_custom_configure_path
-      File.join(Bundler.root, DEFAULT_CONFIG_FILE_PATH)
+      if defined? Rails
+	File.join(Rails.root, DEFAULT_CONFIG_FILE_PATH)
+      else
+        File.join(Bundler.root, DEFAULT_CONFIG_FILE_PATH)
+      end
     end
   end
 end

@@ -30,9 +30,21 @@ RSpec.describe WebStat::Fetch do
       end
     end
     
+    it "Get eyecatch image blob  by #{fetch[:class].to_s}" do
+      fetch[:fixture].each do |fixture|
+        web_stat = fetch[:class].new(fixture)
+	web_stat.url = "https://newsdict.blog"
+	unless web_stat.stat[:eyecatch_image_path].nil?
+	  image = File.read(web_stat.stat[:eyecatch_image_path])
+	  expect(image.encoding.to_s).to eq("UTF-8")
+	end
+      end
+    end
+    
     it "Get eyecatch image path by #{fetch[:class].to_s}" do
       fetch[:fixture].each do |fixture|
         web_stat = fetch[:class].new(fixture)
+	web_stat.url = "https://newsdict.blog"
         expect(web_stat.eyecatch_image_path).to be_string_or_nil
       end
     end
@@ -40,6 +52,7 @@ RSpec.describe WebStat::Fetch do
     it "Get local path of eyecatch image by #{fetch[:class].to_s}" do
       fetch[:fixture].each do |fixture|
         web_stat = fetch[:class].new(fixture)
+	web_stat.url = "https://newsdict.blog"
         expect(web_stat.stat[:eyecatch_image_path]).to be_tmp_file_or_nil
       end
     end
@@ -47,7 +60,7 @@ RSpec.describe WebStat::Fetch do
     
   it "WebStat.stat_by_html" do
     WebStatTestHelper.htmls.each do |fixture|
-      web_stat = WebStat.stat_by_html(fixture)
+      web_stat = WebStat.stat_by_html(fixture, "https://newsdict.blog")
       expect(web_stat[:title]).to eq "gem作成でついまずいたところ"
       expect(web_stat[:site_name]).to eq "newsdict.blog"
       expect(web_stat[:content]).not_to eq nil

@@ -17,13 +17,17 @@ module WebStat
     end
 
     # Get web page's stat by url
+    # @param String url
     def stat_by_url(url)
       stat_by_web(url)
     end
     
     # Get web page's stat by html
-    def stat_by_html(html)
+    # @param String html
+    # @param [String] url
+    def stat_by_html(html, url=nil)
       web_stat = WebStat::FetchAsHtml.new(html)
+      web_stat.url = url unless url.nil?
       web_stat.stat
     end
   end
