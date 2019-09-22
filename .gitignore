@@ -13,6 +13,3 @@
 # builded gems
 *.gem
 /config
-
-# jetbrain
-/.idea
