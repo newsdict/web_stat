@@ -49,6 +49,14 @@ RSpec.describe WebStat::Fetch do
       end
     end
 
+    it "Get language_iso by #{fetch[:class].to_s}" do
+      fetch[:fixture].each do |fixture|
+        web_stat = fetch[:class].new(fixture)
+        web_stat.url = "https://newsdict.blog"
+        expect(web_stat.stat[:language_code]).to eq("ja")
+      end
+    end
+
     it "Get local path of eyecatch image by #{fetch[:class].to_s}" do
       fetch[:fixture].each do |fixture|
         web_stat = fetch[:class].new(fixture)

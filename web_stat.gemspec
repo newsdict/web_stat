@@ -22,14 +22,15 @@ Gem::Specification.new do |spec|
   
   spec.add_runtime_dependency "bundler", ">= 2.0.2"
   spec.add_runtime_dependency "nokogiri", ">= 1.10.4"
-  spec.add_runtime_dependency "mechanize", "~> 2.7"
-  spec.add_runtime_dependency "ruby-readability", "~> 0.7"
-  spec.add_runtime_dependency "final_redirect_url", "~> 0.1.0"
-  spec.add_runtime_dependency "natto", "~> 1.1.2"
-  spec.add_runtime_dependency "sanitize", "~> 5.0.0" 
-  
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "pry", "~> 0.12.2"
-  spec.add_development_dependency "webmock", "~> 3.6.0"
+  spec.add_runtime_dependency "mechanize", ">= 2.7"
+  spec.add_runtime_dependency "ruby-readability", ">= 0.7"
+  spec.add_runtime_dependency "final_redirect_url", ">= 0.1.0"
+  spec.add_runtime_dependency "natto", ">= 1.1.2"
+  spec.add_runtime_dependency "sanitize", ">= 5.0.0"
+  spec.add_runtime_dependency "cld", ">= 0.8.0"
+
+  spec.add_development_dependency "rake", ">= 10.0"
+  spec.add_development_dependency "rspec", ">= 3.0"
+  spec.add_development_dependency "pry", ">= 0.12.2"
+  spec.add_development_dependency "webmock", ">= 3.6.0"
 end
