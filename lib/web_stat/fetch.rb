@@ -1,6 +1,6 @@
 module WebStat
   class Fetch
-    attr_accessor :url, :html, :nokogiri
+    attr_accessor :url, :html, :nokogiri, :userdic
 
     # Get title
     # @return [String] title
@@ -73,7 +73,7 @@ module WebStat
     # Get the informations of @url
     def stat
       content.gsub!(/(\n|\t|\s|　)/, "")
-      tag = WebStat::Tag.new(content)
+      tag = WebStat::Tag.new(content, userdic: WebStat::Configure.get["userdic"])
       {
         title: title,
         site_name: site_name,
