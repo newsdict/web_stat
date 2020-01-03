@@ -87,4 +87,11 @@ RSpec.describe WebStat::Fetch do
       expect(web_stat[:eyecatch_image_path]).to be_tmp_file_or_nil
     end
   end
+  
+  it "invalid url" do
+    expect { WebStat.stat_by_url("aaaa") }.to raise_error(WebStat::INVALID_URL)
+    expect { WebStat.stat_by_url("http://newsdict/") }.to raise_error(WebStat::INVALID_URL)
+    expect { WebStat.stat_by_url("http://newsdict/afsdafasdf") }.to raise_error(WebStat::INVALID_URL)
+    expect { WebStat.stat_by_url("p://newsdict/afsdafasdf") }.to raise_error(WebStat::INVALID_URL)
+  end
 end

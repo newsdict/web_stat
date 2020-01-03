@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    web_stat (0.2.0)
+    web_stat (0.2.2)
       bundler (>= 2.0.2)
       cld (>= 0.8.0)
       final_redirect_url (>= 0.1.0)
