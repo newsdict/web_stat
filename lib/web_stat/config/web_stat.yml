@@ -11,3 +11,4 @@ eyecatch_image_xpaths:
   - '//img[@class="attachment-post-thumbnail"]/@src'
   - '//div[@id="content"]//img/@src'
   - '//img/@src'
+userdic: ""

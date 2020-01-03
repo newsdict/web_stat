@@ -1,13 +1,6 @@
-require 'uri'
-require 'digest'
-require 'sanitize'
-require 'nokogiri'
-require 'open-uri'
-require 'ruby-readability'
-require 'final_redirect_url'
 module WebStat
   class Fetch
-    attr_accessor :url, :html, :nokogiri
+    attr_accessor :url, :html, :nokogiri, :userdic
 
     # Get title
     # @return [String] title
@@ -60,7 +53,7 @@ module WebStat
     def save_local_path(url)
       return nil if url.nil?
       tmp_file = "/tmp/#{Digest::SHA1.hexdigest(url)}"
-      open(original_url(url)) do |remote_file|
+      URI.open(original_url(url)) do |remote_file|
         File.open(tmp_file, "w+b") do |_file|
           _file.puts(remote_file.read)
         end
@@ -79,11 +72,13 @@ module WebStat
     
     # Get the informations of @url
     def stat
-      tag = WebStat::Tag.new(content)
+      content.gsub!(/(\n|\t|\s|　)/, "")
+      tag = WebStat::Tag.new(content, userdic: WebStat::Configure.get["userdic"])
       {
         title: title,
         site_name: site_name,
         content: content,
+        language_code: CLD.detect_language(content)[:code],
         url: @url,
         eyecatch_image_path: save_local_path(eyecatch_image_path),
         tags: tag.nouns

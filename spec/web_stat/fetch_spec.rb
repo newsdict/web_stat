@@ -49,6 +49,14 @@ RSpec.describe WebStat::Fetch do
       end
     end
 
+    it "Get language_iso by #{fetch[:class].to_s}" do
+      fetch[:fixture].each do |fixture|
+        web_stat = fetch[:class].new(fixture)
+        web_stat.url = "https://newsdict.blog"
+        expect(web_stat.stat[:language_code]).to eq("ja")
+      end
+    end
+
     it "Get local path of eyecatch image by #{fetch[:class].to_s}" do
       fetch[:fixture].each do |fixture|
         web_stat = fetch[:class].new(fixture)
@@ -78,5 +86,12 @@ RSpec.describe WebStat::Fetch do
       expect(Sanitize.clean(web_stat[:content]).length).to eq web_stat[:content].length
       expect(web_stat[:eyecatch_image_path]).to be_tmp_file_or_nil
     end
+  end
+  
+  it "invalid url" do
+    expect { WebStat.stat_by_url("aaaa") }.to raise_error(WebStat::INVALID_URL)
+    expect { WebStat.stat_by_url("http://newsdict/") }.to raise_error(WebStat::INVALID_URL)
+    expect { WebStat.stat_by_url("http://newsdict/afsdafasdf") }.to raise_error(WebStat::INVALID_URL)
+    expect { WebStat.stat_by_url("p://newsdict/afsdafasdf") }.to raise_error(WebStat::INVALID_URL)
   end
 end

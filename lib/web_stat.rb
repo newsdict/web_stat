@@ -1,4 +1,14 @@
 require "bundler"
+
+require 'uri'
+require 'digest'
+require 'sanitize'
+require 'nokogiri'
+require 'open-uri'
+require 'ruby-readability'
+require 'final_redirect_url'
+require 'cld'
+
 require "web_stat/categorize"
 require "web_stat/configure"
 require "web_stat/errors"
