@@ -97,8 +97,8 @@ RSpec.describe WebStat::Fetch do
   
   it "valid url" do
     web_stat_fetch_web_class = WebStat::FetchAsWeb.new("https://newsdict.blog/content/images/size/w100/2019/03/facebook-3.jpg")
-    #expect(web_stat_fetch_web_class.url_valid?("http://status.aws.amazon.com/#cloudfront_12345")).to be true
-    #expect(web_stat_fetch_web_class.url_valid?("https://findy-code.io?h=NWsZey5UgJ51u&t=omikuji-22")).to be true
+    expect(web_stat_fetch_web_class.url_valid?("http://status.aws.amazon.com/#cloudfront_12345")).to be true
+    expect(web_stat_fetch_web_class.url_valid?("https://findy-code.io?h=NWsZey5UgJ51u&t=omikuji-22")).to be true
     expect(web_stat_fetch_web_class.url_valid?("https://www.meetup.com/pro/docker")).to be true
     expect(web_stat_fetch_web_class.url_valid?("https://gxyt4.app.goo.gl/Mn64U")).to be true
     expect(web_stat_fetch_web_class.url_valid?("https://status.cloud.google.com/incident/cloud-functions/19010")).to be true
