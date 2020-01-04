@@ -15,7 +15,7 @@ module WebStat
     
     # Validation url
     def url_valid?(url)
-      regexp = Regexp.new("^https?://([a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9])\\\.([a-zA-Z]{2,})(/.*)?$", Regexp::IGNORECASE)
+      regexp = Regexp.new("^https?://([a-zA-Z0-9][a-zA-Z0-9\\\-\.]{1,61}[a-zA-Z0-9])\\\.([a-zA-Z]{2,})(.*)?$", Regexp::IGNORECASE)
       regexp.match?(url)
     end 
   end
