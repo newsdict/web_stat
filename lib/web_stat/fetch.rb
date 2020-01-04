@@ -72,13 +72,13 @@ module WebStat
     
     # Get the informations of @url
     def stat
-      content.gsub!(/(\n|\t|\s|　)/, "")
+      clean_content = content.scrub('').gsub(/[\s　]/, "")
       tag = WebStat::Tag.new(content, userdic: WebStat::Configure.get["userdic"])
       {
         title: title,
         site_name: site_name,
-        content: content,
-        language_code: CLD.detect_language(content)[:code],
+        content: clean_content,
+        language_code: CLD.detect_language(clean_content)[:code],
         url: @url,
         eyecatch_image_path: save_local_path(eyecatch_image_path),
         tags: tag.nouns

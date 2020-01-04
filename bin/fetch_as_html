@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+APP_PATH = File.expand_path('../', __dir__)
+require "bundler/setup"
+require "#{APP_PATH}/lib/web_stat.rb"
+p "[ERROR] Not enough argments. example) fetch_as_html https://newsdict.jp" if ARGV[0].nil?
+p WebStat.stat_by_url(ARGV[0])
