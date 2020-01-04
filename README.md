@@ -45,6 +45,10 @@ And then execute:
 ### spec
 
   $ bundle exec rake spec
+  
+or
+
+  $ bundle exec rspec
 
 Test a file
 
