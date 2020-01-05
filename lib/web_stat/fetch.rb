@@ -53,10 +53,10 @@ module WebStat
     def save_local_path(url)
       return nil if url.nil?
       tmp_file = "/tmp/#{Digest::SHA1.hexdigest(url)}"
-      URI.open(original_url(url)) do |remote_file|
-        File.open(tmp_file, "w+b") do |_file|
-          _file.puts(remote_file.read)
-        end
+      agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
+      image = agent.get(url)
+      File.open(tmp_file, "w+b") do |_file|
+        _file.puts(image.body_io.read)
       end
       tmp_file
     end
