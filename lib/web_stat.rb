@@ -21,24 +21,26 @@ require "web_stat/fetch/fetch_as_web"
 module WebStat
   class << self
     # Get web page's stat by url
-    def stat_by_web(url)
+    # @param [Hash] Specify a dictionary for each language code. example ) {"ja": /***/**.dic, "other": /***/***.dic}
+    def stat_by_web(url, userdics: nil)
       web_stat = WebStat::FetchAsWeb.new(url)
-      web_stat.stat
+      web_stat.stat(userdics: userdics)
     end
 
     # Get web page's stat by url
     # @param String url
-    def stat_by_url(url)
-      stat_by_web(url)
+    def stat_by_url(url, userdics: nil)
+      stat_by_web(url, userdics: userdics)
     end
     
     # Get web page's stat by html
     # @param String html
     # @param [String] url
-    def stat_by_html(html, url=nil)
+    # @param [Hash] Specify a dictionary for each language code. example ) {"ja": /***/**.dic, "other": /***/***.dic}
+    def stat_by_html(html, url=nil, userdics: nil)
       web_stat = WebStat::FetchAsHtml.new(html)
       web_stat.url = url unless url.nil?
-      web_stat.stat
+      web_stat.stat(userdics: userdics)
     end
   end
 end
