@@ -56,7 +56,11 @@ module WebStat
       agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
       image = agent.get(url)
       File.open(tmp_file, "w+b") do |_file|
-        _file.puts(image.body_io.read)
+        if image.class == Mechanize::File
+          _file.puts(image.body)
+        else
+          _file.puts(image.body_io.read)
+        end
       end
       tmp_file
     end
@@ -68,18 +72,30 @@ module WebStat
       # Enable to read Robots.txt
       agent.robots = true
       document = agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
-      document.body.encode('UTF-8', document.encoding)
+      if document.class == Mechanize::File
+        document.body
+      else
+        document.body.encode('UTF-8', document.encoding)
+      end
     end
     
     # Get the informations of @url
-    def stat
+    # @param [Hash] Specify a dictionary for each language code. example ) {"ja": /***/**.dic, "other": /***/***.dic}
+    def stat(userdics: nil)
       clean_content = content.scrub('').gsub(/[\s　]/, "")
-      tag = WebStat::Tag.new(content, userdic: WebStat::Configure.get["userdic"])
+      language_code = CLD.detect_language(clean_content)[:code]
+      if userdics && userdics.has_key?(language_code)
+        tag = WebStat::Tag.new("#{title} #{content}", userdic: userdics[language_code])
+      elsif userdics && userdics.has_key?("other")
+        tag = WebStat::Tag.new("#{title} #{content}", userdic: userdics["other"])
+      else
+        tag = WebStat::Tag.new("#{title} #{content}", userdic: WebStat::Configure.get["userdic"])
+      end
       {
         title: title,
         site_name: site_name,
         content: clean_content,
-        language_code: CLD.detect_language(clean_content)[:code],
+        language_code: language_code,
         url: @url,
         eyecatch_image_path: save_local_path(eyecatch_image_path),
         tags: tag.nouns
