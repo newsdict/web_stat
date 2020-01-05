@@ -25,10 +25,10 @@ module WebStat
       end
       site_name.strip
     end
-      
+      []
     # Get main section
     def content
-      Sanitize.clean(Readability::Document.new(@html).content)
+      Sanitize.clean(Readability::Document.new(@nokogiri.at('body')).content)
     end
       
     # Get temporary path of image
@@ -67,7 +67,8 @@ module WebStat
       agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
       # Enable to read Robots.txt
       agent.robots = true
-      agent.get(url, [], nil, { 'Accept-Language' => 'ja'}).body
+      document = agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
+      document.body.encode('UTF-8', document.encoding)
     end
     
     # Get the informations of @url
