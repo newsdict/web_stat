@@ -41,7 +41,7 @@ module WebStat
           break
         end
       end
-      if path.match(/^\//)
+      if ! path.nil? && path.match(/^\//)
         "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
       else
         path
@@ -82,7 +82,7 @@ module WebStat
     # Get the informations of @url
     # @param [Hash] Specify a dictionary for each language code. example ) {"ja": /***/**.dic, "other": /***/***.dic}
     def stat(userdics: nil)
-      clean_content = content.scrub('').gsub(/[\s　]/, "")
+      clean_content = content.scrub('').gsub(/[\n\t\r　]/, "").gsub(/\s{2,}/, "\s")
       language_code = CLD.detect_language(clean_content)[:code]
       if userdics && userdics.has_key?(language_code)
         tag = WebStat::Tag.new("#{title} #{content}", userdic: userdics[language_code])
