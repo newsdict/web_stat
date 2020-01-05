@@ -1,3 +1,10 @@
+# !!!!! Precautions when using with Rails !!!!!
+
+Write this line your Gemfile.
+```
+gem "final_redirect_url", :git => "git@github.com:yubele/final_redirect_url.git"
+```
+
 # WebStat
 
 Fetch the web pages and stat.
