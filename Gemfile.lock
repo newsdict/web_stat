@@ -1,10 +1,15 @@
+GIT
+  remote: git@github.com:yubele/final_redirect_url.git
+  revision: a8e8fb256f044606313d9726278516a0f24449d4
+  specs:
+    final_redirect_url (0.1.0)
+
 PATH
   remote: .
   specs:
-    web_stat (0.2.4)
+    web_stat (0.2.6)
       bundler (>= 2.0.2)
       cld (>= 0.8.0)
-      final_redirect_url (>= 0.1.0)
       mechanize (>= 2.7)
       natto (>= 1.1.2)
       nokogiri (>= 1.10.4)
@@ -27,7 +32,6 @@ GEM
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
     ffi (1.11.3)
-    final_redirect_url (0.1.0)
     guess_html_encoding (0.0.11)
     hashdiff (1.0.0)
     http-cookie (1.0.3)
@@ -95,6 +99,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  final_redirect_url!
   pry (>= 0.12.2)
   rake (>= 10.0)
   rspec (>= 3.0)
