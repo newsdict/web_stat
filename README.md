@@ -2,7 +2,7 @@
 
 Write this line your Gemfile.
 ```
-gem "final_redirect_url", :git => "git@github.com:yubele/final_redirect_url.git"
+gem "final_redirect_url", :git => "git@github.com:yubele/final_redirect_url"
 ```
 
 # WebStat
