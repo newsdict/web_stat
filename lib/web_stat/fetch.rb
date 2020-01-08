@@ -84,9 +84,9 @@ module WebStat
     def stat(userdics: nil)
       clean_content = content.scrub('').gsub(/[\n\t\r　]/, "").gsub(/\s{2,}/, "\s")
       language_code = CLD.detect_language(clean_content)[:code]
-      if userdics && userdics.has_key?(language_code)
+      if userdics && userdics.has_key?(language_code) && File.exists?(userdics[language_code])
         tag = WebStat::Tag.new("#{title} #{content}", userdic: userdics[language_code])
-      elsif userdics && userdics.has_key?("other")
+      elsif userdics && userdics.has_key?("other") && File.exists?(userdics["other"])
         tag = WebStat::Tag.new("#{title} #{content}", userdic: userdics["other"])
       else
         tag = WebStat::Tag.new("#{title} #{content}", userdic: WebStat::Configure.get["userdic"])
