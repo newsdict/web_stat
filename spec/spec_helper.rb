@@ -59,9 +59,10 @@ end
 
 # Set webmock
 WebStatTestHelper.scheme_and_files.each do |url|
+  status = [200, 404, 503].sample
   WebMock.stub_request(:get, url)
     .to_return(
-      status: 200,
+      status: status,
       body: File.new(File.join(File.dirname(__FILE__), "fixtures", "htmls", File.basename(url))),
       headers: {content_type: 'application/html; charset=utf-8'})
 end

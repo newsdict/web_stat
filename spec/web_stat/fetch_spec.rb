@@ -83,6 +83,7 @@ RSpec.describe WebStat::Fetch do
       expect(web_stat[:title]).to eq "gem作成でついまずいたところ"
       expect(web_stat[:site_name]).to eq "newsdict.blog"
       expect(web_stat[:content]).not_to eq nil
+      expect(web_stat[:status]).to eq("200").or eq("404").or eq("503")
       expect(Sanitize.clean(web_stat[:content]).length).to eq web_stat[:content].length
       expect(web_stat[:eyecatch_image_path]).to be_tmp_file_or_nil
     end

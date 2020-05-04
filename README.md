@@ -25,6 +25,10 @@ Fetch the web pages and stat.
 - "rake", "~> 10.0"
 - "rspec", "~> 3.0"
 
+### Install mecab
+
+    $ sudo apt install mecab-ipadic-utf8 libmecab
+
 ## Installation
 
 Add this line to your application's Gemfile:

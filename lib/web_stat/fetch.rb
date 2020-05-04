@@ -1,6 +1,6 @@
 module WebStat
   class Fetch
-    attr_accessor :url, :html, :nokogiri, :userdic
+    attr_accessor :url, :html, :nokogiri, :userdic, :status
 
     # Get title
     # @return [String] title
@@ -67,16 +67,24 @@ module WebStat
     
     # Get url
     # @param [String] url
+    # @param [String] body
     def get_url(url)
       agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
       # Enable to read Robots.txt
       agent.robots = true
-      document = agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
-      if document.class == Mechanize::File
-        document.body
-      else
-        document.body.encode('UTF-8', document.encoding)
+      begin
+        document = agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
+        if document.class == Mechanize::File
+          body = document.body
+        else
+          body = document.body.encode('UTF-8', document.encoding)
+        end
+        @status = document.code
+      rescue Mechanize::ResponseCodeError => e
+        body = e.page.body
+        @status = e.page.code
       end
+      body
     end
     
     # Get the informations of @url
@@ -96,6 +104,7 @@ module WebStat
         site_name: site_name,
         content: clean_content,
         language_code: language_code,
+        status: @status,
         url: @url,
         eyecatch_image_path: save_local_path(eyecatch_image_path),
         tags: tag.nouns
@@ -107,8 +116,9 @@ module WebStat
     # Get original url
     # @param [String] url
     def original_url(url)
-      if url.match(/^http/)
-        FinalRedirectUrl.final_redirect_url(url)
+      last_url = FinalRedirectUrl.final_redirect_url(url)
+      unless last_url.nil? || last_url.scrub('').empty?
+        last_url
       else
         url
       end
