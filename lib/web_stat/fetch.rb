@@ -13,7 +13,11 @@ module WebStat
       rescue
         title = @nokogiri.title
       end
-      title.strip
+      if title.nil?
+        "No Title"
+      else
+        title.strip
+      end
     end
     
     # Get name of domain 
@@ -23,7 +27,11 @@ module WebStat
       rescue
         site_name = @nokogiri.title
       end
-      site_name.strip
+      if site_name.nil?
+        "No Sitename"
+      else
+        site_name.strip
+      end
     end
       []
     # Get main section
