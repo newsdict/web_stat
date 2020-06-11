@@ -19,7 +19,6 @@ module WebStat
         title.strip
       end
     end
-    
     # Get name of domain 
     def site_name
       begin
@@ -33,7 +32,6 @@ module WebStat
         site_name.strip
       end
     end
-      []
     # Get main section
     def content
       Sanitize.clean(Readability::Document.new(@nokogiri.at('body')).content)

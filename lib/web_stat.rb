@@ -1,14 +1,19 @@
 require "bundler"
 
+require 'cld'
 require 'uri'
 require 'digest'
+require 'logger'
 require 'sanitize'
 require 'nokogiri'
 require 'open-uri'
+require 'net/http'
+require 'pry-byebug'
 require 'ruby-readability'
-require 'final_redirect_url'
-require 'cld'
+require 'selenium-webdriver'
 
+require "helpers/web_drive_helper"
+require "web_stat/final_redirect_url"
 require "web_stat/categorize"
 require "web_stat/configure"
 require "web_stat/errors"
