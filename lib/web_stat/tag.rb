@@ -4,7 +4,7 @@ module WebStat
     attr_accessor :natto_mecab, :article
     
     def initialize(article, userdic: nil)
-        @natto_mecab = Natto::MeCab.new(userdic: userdic)
+      @natto_mecab = Natto::MeCab.new(userdic: userdic)
       @article = article
     end
     

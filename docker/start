@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+if [ "$1" = "rm" ];then
+  shift
+  docker-compose rm -f
+fi
+docker-compose stop
+if [ "$1" = "attach" ]; then
+  docker-compose up -d
+  docker attach $2
+else
+  docker-compose up $@
+fi
