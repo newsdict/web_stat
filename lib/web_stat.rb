@@ -8,7 +8,6 @@ require 'sanitize'
 require 'nokogiri'
 require 'open-uri'
 require 'net/http'
-require 'pry-byebug'
 require 'ruby-readability'
 require 'selenium-webdriver'
 

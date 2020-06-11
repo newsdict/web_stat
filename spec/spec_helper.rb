@@ -1,11 +1,17 @@
 require 'rspec/expectations'
 require "bundler/setup"
 require 'pry'
+require 'pry-byebug'
 require "web_stat"
 
 require 'webmock'
 include WebMock::API
 WebMock.enable!
+
+WebMock.disable_net_connect!({
+  allow_localhost: true,
+  allow: 'chromedriver.storage.googleapis.com'
+})
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
