@@ -122,7 +122,7 @@ module WebStat
     # Get original url
     # @param [String] url
     def original_url(url)
-      last_url = FinalRedirectUrl.final_redirect_url(url)
+      last_url = WebStat::FinalRedirectUrl.final_redirect_url(url)
       unless last_url.nil? || last_url.scrub('').empty?
         last_url
       else
