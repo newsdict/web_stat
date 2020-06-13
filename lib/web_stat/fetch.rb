@@ -57,7 +57,7 @@ module WebStat
     # Get local path to save url
     # @param [String] url
     def save_local_path(url)
-      return nil if url.nil? || url.empty?
+      return nil if url.nil? || ! url.match(%{^http})
       tmp_file = "/tmp/#{Digest::SHA1.hexdigest(url)}"
       agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
       image = agent.get(url)
