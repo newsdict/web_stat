@@ -12,3 +12,4 @@ eyecatch_image_xpaths:
   - '//div[@id="content"]//img/@src'
   - '//img/@src'
 userdic: ""
+use_chromedirver: true

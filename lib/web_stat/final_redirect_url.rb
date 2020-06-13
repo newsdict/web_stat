@@ -27,7 +27,11 @@ module WebStat
         uri = URI.parse(url)
         response = ::Net::HTTP.get_response(uri)
         if response.class == Net::HTTPOK
-          return URI.parse(WebStat::WebDriverHelper.get_last_url(uri))
+          if WebStat::Configure.get["use_chromedirver"]
+            return URI.parse(WebStat::WebDriverHelper.get_last_url(uri))
+          else
+            return URI.parse(uri)
+          end
         else
           redirect_location = response['location']
           location_uri = URI.parse(redirect_location)
