@@ -47,11 +47,8 @@ module WebStat
           break
         end
       end
-      if path.nil?
+      if path.nil? || path.empty?
         path = @nokogiri.at('body').xpath('//img').first.attr('src')
-      end
-      if path.nil?
-        Readability::Document.new(@nokogiri.at('body')).content
       end
       if ! path.nil? && path.match(/^\//)
         "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
