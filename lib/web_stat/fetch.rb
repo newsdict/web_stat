@@ -86,7 +86,7 @@ module WebStat
           raise Mechanize::RobotsDisallowedError.new(url)
         end
         if WebStat::Configure.get["use_chromedirver"]
-          document = WebStat::WebDriverHelper.get_last_url(url)
+          body = WebStat::WebDriverHelper.get_source(url)
           @status = 200
         else
           document = mech.get(url, [], nil, { 'Accept-Language' => 'ja'})
