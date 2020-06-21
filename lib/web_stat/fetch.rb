@@ -47,9 +47,9 @@ module WebStat
           break
         end
       end
-      readability_content = Readability::Document.new(@nokogiri.at('body')).content
+      readability_content = ::Nokogiri::HTML(Readability::Document.new(@nokogiri.at('body')).content)
       if (path.nil? || path.empty?) && readability_content.xpath('//img').first
-        path = ::Nokogiri::HTML(readability_content).xpath('//img').first.attr('src')
+        path = readability_content.xpath('//img').first.attr('src')
       end
       if (path.nil? || path.empty?) && @nokogiri.xpath('//img').first
         path = @nokogiri.xpath('//img').first.attr('src')
