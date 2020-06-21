@@ -9,7 +9,7 @@ module WebStat
         if defined? Rails
           YAML.load_file(get_configure_path)[Rails.env]
         else
-          YAML.load_file(get_configure_path)["production"]
+          YAML.load_file(get_configure_path)[ENV["ENV"] || "production"]
         end
       end
       

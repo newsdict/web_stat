@@ -47,8 +47,8 @@ module WebStat
           break
         end
       end
-      if path.nil? || path.empty? || @nokogiri.at('body').xpath('//img').first
-        path = @nokogiri.at('body').xpath('//img').first.attr('src')
+      if (path.nil? || path.empty?) && @nokogiri.xpath('//img')
+        path = @nokogiri.xpath('//img').attr('src')
       end
       if ! path.nil? && path.match(/^\//)
         "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
