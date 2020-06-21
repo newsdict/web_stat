@@ -11,7 +11,7 @@ module WebStat
             redirect_lookup_depth = options[:depth].to_i > 0 ? options[:depth].to_i : 10
             response_uri = get_final_redirect_url(url, redirect_lookup_depth)
             final_url =  url_string_from_uri(response_uri)
-          rescue Exception => ex
+          rescue => e
             # nothing
           end
         end

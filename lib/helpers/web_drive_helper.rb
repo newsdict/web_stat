@@ -5,14 +5,29 @@ module WebStat
       # @param [String] url
       # @param [Integer] delay
       def get_last_url(url, delay=nil)
+        driver = get_driver(url, delay)
+        last_url = driver.current_url
+        driver.quit
+        last_url
+      end
+      # Get source of html
+      # @param [String] url
+      # @param [Integer] delay
+      def get_source(url, delay=nil)
+        driver = get_driver(url, delay)
+        source = driver.page_source
+        driver.quit
+        source
+      end
+      
+      private
+      def get_driver(url, delay=nil)
         Selenium::WebDriver.logger.output = File.join("/tmp", "selenium.log")
         Selenium::WebDriver.logger.level = :info
         options = Selenium::WebDriver::Chrome::Options.new(args: [
           'headless',
           'no-sandbox',
-          'disable-gpu',
-          'start-maximized',
-          'window-size=1920,1080'
+          'disable-gpu'
           ])
         driver = Selenium::WebDriver.for(:chrome, options: options)
         driver.manage.timeouts.implicit_wait = 10
@@ -21,9 +36,10 @@ module WebStat
         if delay.is_a?(Integer)
           sleep delay
         end
-        last_url = driver.current_url
+        driver
+      rescue => e
         driver.quit
-        last_url
+        raise e
       end
     end
   end

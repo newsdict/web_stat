@@ -55,12 +55,10 @@ And then execute:
 
 ### spec
 
-  $ bundle exec rake spec
-  
-or
-
-  $ bundle exec rspec
+  $ docker/start -d
+  $ docker/exec ENV=development bundle exec rspec
 
 Test a file
 
-  $ bundle exec rspec spec/web_stat/fetch_spec.rb 
+  $ docker/start -d
+  $ docker/exec ENV=development bundle exec rspec spec/web_stat/fetch_spec.rb 

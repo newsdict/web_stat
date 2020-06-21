@@ -47,8 +47,12 @@ module WebStat
           break
         end
       end
-      if path.nil? || path.empty?
-        path = @nokogiri.at('body').xpath('//img').first.attr('src')
+      readability_content = ::Nokogiri::HTML(Readability::Document.new(@nokogiri.at('body')).content)
+      if (path.nil? || path.empty?) && readability_content.xpath('//img').first
+        path = readability_content.xpath('//img').first.attr('src')
+      end
+      if (path.nil? || path.empty?) && @nokogiri.xpath('//img').first
+        path = @nokogiri.xpath('//img').first.attr('src')
       end
       if ! path.nil? && path.match(/^\//)
         "#{URI.parse(@url).scheme}://#{URI.parse(@url).host}#{path}"
@@ -78,17 +82,25 @@ module WebStat
     # @param [String] url
     # @param [String] body
     def get_url(url)
-      agent = Mechanize.new { |_agent| _agent.user_agent = WebStat::Configure.get["user_agent"] }
+      mech = Mechanize.new { |_mech| _mech.user_agent = WebStat::Configure.get["user_agent"] }
       # Enable to read Robots.txt
-      agent.robots = true
+      mech.robots = true
       begin
-        document = agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
-        if document.class == Mechanize::File
-          body = document.body
-        else
-          body = document.body.encode('UTF-8', document.encoding)
+        if mech.agent.robots_disallowed?(url)
+          raise Mechanize::RobotsDisallowedError.new(url)
         end
-        @status = document.code
+        if WebStat::Configure.get["use_chromedirver"]
+          body = WebStat::WebDriverHelper.get_source(url)
+          @status = 200
+        else
+          document = mech.get(url, [], nil, { 'Accept-Language' => 'ja'})
+          if document.class == Mechanize::File
+            body = document.body
+          else
+            body = document.body.encode('UTF-8', document.encoding)
+          end
+          @status = document.code
+        end
       rescue Mechanize::ResponseCodeError => e
         body = e.page.body
         @status = e.page.code

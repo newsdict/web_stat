@@ -7,12 +7,7 @@ require "web_stat"
 require 'webmock'
 include WebMock::API
 WebMock.enable!
-
-WebMock.disable_net_connect!({
-  allow_localhost: true,
-  allow: 'chromedriver.storage.googleapis.com'
-})
-
+  
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
