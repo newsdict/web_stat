@@ -37,6 +37,9 @@ module WebStat
           sleep delay
         end
         driver
+      rescue => e
+        driver.quit
+        raise e
       end
     end
   end
