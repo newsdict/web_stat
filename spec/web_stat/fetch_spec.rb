@@ -66,6 +66,106 @@ RSpec.describe WebStat::Fetch do
     end
   end
 
+  [{fixture: "https://newsdict.blog/rfc2616.pdf", class: WebStat::FetchAsWeb}].each do |fetch|
+
+    it "Get title by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(web_stat.title).to eq "Microsoft Word"
+    end
+
+    it "Get site name by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(web_stat.site_name).to eq "RFC2616.doc"
+    end
+
+    it "Get Document's content by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(web_stat.content).not_to eq nil
+    end
+
+    it "WebStat content do not include html by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(Sanitize.clean(web_stat.content).length).to eq web_stat.content.length
+    end
+
+    it "Get eyecatch image blob  by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      unless web_stat.stat[:eyecatch_image_path].nil?
+        image = File.read(web_stat.stat[:eyecatch_image_path])
+        expect(image.encoding.to_s).to eq("UTF-8")
+      end
+    end
+
+    it "Get eyecatch image path by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      expect(web_stat.eyecatch_image_path).to be_string_or_nil
+    end
+
+    it "Get language_iso by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      expect(web_stat.stat[:language_code]).to eq("en")
+    end
+
+    it "Get local path of eyecatch image by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      expect(web_stat.stat[:eyecatch_image_path]).to be_tmp_file_or_nil
+    end
+  end
+
+  [{fixture: "https://newsdict.blog/newsdict.blog.pdf", class: WebStat::FetchAsWeb}].each do |fetch|
+
+    it "Get title by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(web_stat.title).to eq "newsdict.blog"
+    end
+
+    it "Get site name by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(web_stat.site_name).to eq "newsdict.blog"
+    end
+
+    it "Get Document's content by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(web_stat.content).not_to eq nil
+    end
+
+    it "WebStat content do not include html by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      expect(Sanitize.clean(web_stat.content).length).to eq web_stat.content.length
+    end
+
+    it "Get eyecatch image blob  by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      unless web_stat.stat[:eyecatch_image_path].nil?
+        image = File.read(web_stat.stat[:eyecatch_image_path])
+        expect(image.encoding.to_s).to eq("UTF-8")
+      end
+    end
+
+    it "Get eyecatch image path by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      expect(web_stat.eyecatch_image_path).to be_string_or_nil
+    end
+
+    it "Get language_iso by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      expect(web_stat.stat[:language_code]).to eq("ja")
+    end
+
+    it "Get local path of eyecatch image by #{fetch[:class].to_s}" do
+      web_stat = fetch[:class].new(fetch[:fixture])
+      web_stat.url = "https://newsdict.blog"
+      expect(web_stat.stat[:eyecatch_image_path]).to be_tmp_file_or_nil
+    end
+  end
+
   it "WebStat.stat_by_html" do
     WebStatTestHelper.htmls.each do |fixture|
       web_stat = WebStat.stat_by_html(fixture, "https://newsdict.blog")

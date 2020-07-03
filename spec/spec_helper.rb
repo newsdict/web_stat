@@ -6,8 +6,9 @@ require "web_stat"
 
 require 'webmock'
 include WebMock::API
+ENV['ENV'] = 'test'
 WebMock.enable!
-  
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"
@@ -52,7 +53,14 @@ module WebStatTestHelper
     # Get htmls of fixture
     def scheme_and_files
       Dir.glob(File.join(File.dirname(__FILE__), "fixtures", "htmls", "*.html")).map do |file|
-	"https://newsdict.blog/#{File.basename(file)}"
+	      "https://newsdict.blog/#{File.basename(file)}"
+      end
+    end
+
+    # Get pdfs of fixture
+    def pdfs
+      Dir.glob(File.join(File.dirname(__FILE__), "fixtures", "pdfs", "*.pdf")).map do |file|
+	      "https://newsdict.blog/#{File.basename(file)}"
       end
     end
   end
@@ -66,6 +74,13 @@ WebStatTestHelper.scheme_and_files.each do |url|
       status: status,
       body: File.new(File.join(File.dirname(__FILE__), "fixtures", "htmls", File.basename(url))),
       headers: {content_type: 'application/html; charset=utf-8'})
+end
+WebStatTestHelper.pdfs.each do |url|
+  WebMock.stub_request(:get, url)
+    .to_return(
+      status: 200,
+      body: File.read(File.join(File.dirname(__FILE__), "fixtures", "pdfs", File.basename(url))),
+      headers: {content_type: 'application/pdf'})
 end
 
 WebMock.stub_request(:get, "https://newsdict.blog/robots.txt")
