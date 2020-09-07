@@ -1,7 +1,12 @@
 module WebStat
   class Fetch
+    THUMBNAIL_REGEXS = {
+      :youtube => [
+        %r{^https://www.youtube.com/watch\?v=([^&]+)},
+        'http://img.youtube.com/vi/\1/default.jpg'
+        ]
+    }
     attr_accessor :url, :html, :nokogiri, :userdic, :status
-
     # Get title
     # @return [String] title
     def title
@@ -19,7 +24,8 @@ module WebStat
         title.strip
       end
     end
-    # Get name of domain 
+
+    # Get name of domain
     def site_name
       begin
         site_name = @nokogiri.title.split(/#{WebStat::Configure.get["regex_to_sprit_title"]}/, 2).last
@@ -36,7 +42,7 @@ module WebStat
     def content
       Sanitize.clean(Readability::Document.new(@nokogiri.at('body')).content)
     end
-      
+
     # Get temporary path of image
     def eyecatch_image_path
       # Reuse `path` in this method
@@ -47,9 +53,15 @@ module WebStat
           break
         end
       end
+      # If there is a thumbnail rule, apply it.
+      THUMBNAIL_REGEXS.each do |provider, v|
+        if @url.match(v[0])
+          return @url.gsub(v[0], v[1])
+        end
+      end
       readability_content = ::Nokogiri::HTML(Readability::Document.new(@nokogiri.at('body')).content)
       if (path.nil? || path.empty?) && readability_content.xpath('//img').first
-        path = readability_content.xpath('//img').first.attr('src')
+        path =  readability_content.xpath('//img').first.attr('src')
       end
       if (path.nil? || path.empty?) && @nokogiri.xpath('//img').first
         path = @nokogiri.xpath('//img').first.attr('src')
@@ -60,7 +72,7 @@ module WebStat
         path
       end
     end
-    
+
     # Get local path to save url
     # @param [String] url
     def save_local_path(url)
@@ -77,7 +89,7 @@ module WebStat
       end
       tmp_file
     end
-    
+
     # Get url
     # @param [String] url
     # @param [String] body
@@ -107,7 +119,7 @@ module WebStat
       end
       body
     end
-    
+
     # Get the informations of @url
     # @param [Hash] Specify a dictionary for each language code. example ) {"ja": /***/**.dic, "other": /***/***.dic}
     def stat(userdics: nil)
