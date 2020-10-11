@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    web_stat (0.3.15)
+    web_stat (0.3.17)
       bundler (>= 2.0.2)
       cld (>= 0.8.0)
       mechanize (>= 2.7)
@@ -56,7 +56,7 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (4.0.0)
       connection_pool (~> 2.2)
-    nokogiri (1.10.9)
+    nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.2)
       nokogiri (~> 1.8, >= 1.8.4)

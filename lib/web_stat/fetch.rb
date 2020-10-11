@@ -83,7 +83,7 @@ module WebStat
       File.open(tmp_file, "w+b") do |_file|
         if image.class == Mechanize::File
           _file.puts(image.body)
-        else
+        elsif image.respond_to?(:body)
           _file.puts(image.body_io.read)
         end
       end
