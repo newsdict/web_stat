@@ -1,7 +1,7 @@
 development: &development
   # Minimum number of characters to detect meta title
   min_length_of_meta_title: 10
-  # Split regular expression for titles 
+  # Split regular expression for titles
   regex_to_sprit_title: '\||-|:|｜|：|〜|\~| – '
   # User Agent
   user_agent: "web_stat gem agent"
@@ -14,6 +14,10 @@ development: &development
     - '//img/@src'
   userdic: ""
   use_chromedirver: false
+  thumbnail_regex:
+    youtube:
+      - '%r{^https://www.youtube.com/watch\?v=([^&]+)}'
+      - 'http://img.youtube.com/vi/\1/default.jpg'
 test:
   <<: *development
 production:

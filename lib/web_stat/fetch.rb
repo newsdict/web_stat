@@ -1,11 +1,5 @@
 module WebStat
   class Fetch
-    THUMBNAIL_REGEXS = {
-      :youtube => [
-        %r{^https://www.youtube.com/watch\?v=([^&]+)},
-        'http://img.youtube.com/vi/\1/default.jpg'
-        ]
-    }
     attr_accessor :url, :html, :nokogiri, :userdic, :status
     # Get title
     # @return [String] title
@@ -54,7 +48,7 @@ module WebStat
         end
       end
       # If there is a thumbnail rule, apply it.
-      THUMBNAIL_REGEXS.each do |provider, v|
+      WebStat::Configure.get["thumbnail_regex"].each do |provider, v|
         if @url.match(v[0])
           return @url.gsub(v[0], v[1])
         end
