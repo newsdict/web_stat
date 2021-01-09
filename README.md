@@ -1,29 +1,6 @@
-# !!!!! Precautions when using with Rails !!!!!
-
-Write this line your Gemfile.
-```
-gem "final_redirect_url", :git => "git@github.com:yubele/final_redirect_url"
-```
-
 # WebStat
 
 Fetch the web pages and stat.
-
-## Requirements
-
--  [MeCab _0.996_](http://taku910.github.io/mecab/#download)
-- add runtime dependency
- - "bundler", "~> 2.0"
- - "nokogiri", "~> 1.10"
- - "mechanize", "~> 2.7"
- - "ruby-readability", "~> 0.7"
- - "final_redirect_url", "~> 0.1.0"
- - "natto", "~> 1.1.2"
-- add development dependency
- - "rake", "~> 10.0"
- - "rspec", "~> 3.0"
-- "rake", "~> 10.0"
-- "rspec", "~> 3.0"
 
 ### Install mecab
 

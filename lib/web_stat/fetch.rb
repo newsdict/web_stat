@@ -34,7 +34,7 @@ module WebStat
     end
     # Get main section
     def content
-      Sanitize.clean(Readability::Document.new(@nokogiri.at('body')).content)
+      Sanitize.clean(Readability::Document.new(@nokogiri.at('body').to_s).content)
     end
 
     # Get temporary path of image
@@ -53,7 +53,7 @@ module WebStat
           return @url.gsub(v[0], v[1])
         end
       end
-      readability_content = ::Nokogiri::HTML(Readability::Document.new(@nokogiri.at('body')).content)
+      readability_content = ::Nokogiri::HTML(Readability::Document.new(@nokogiri.at('body').to_s).content)
       if (path.nil? || path.empty?) && readability_content.xpath('//img').first
         path =  readability_content.xpath('//img').first.attr('src')
       end
