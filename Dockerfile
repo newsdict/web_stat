@@ -1,5 +1,5 @@
 # Define base image, you can use --build-arg
-ARG base_image="newsdict/rails:ubuntu20.10_nvmv0.35.2_nodev14.3.0_rubyv2.7.1_sasscv2.3.0_ffiv1.13.1_chromedriver"
+ARG base_image="newsdict/rails:ubuntu20.10_nvmv0.37.0_nodev15.2.1_rubyv3.0.0_sasscv2.4.0_ffiv1.13.1_chromedriver"
 FROM $base_image
 
 # Set locale
