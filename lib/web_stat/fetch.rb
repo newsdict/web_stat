@@ -95,19 +95,11 @@ module WebStat
         if mech.agent.robots_disallowed?(url)
           raise Mechanize::RobotsDisallowedError.new(url)
         end
-        if WebStat::Configure.get["use_chromedirver"]
-          begin
-            body = WebStat::WebDriverHelper.get_source(url)
-          rescue Selenium::WebDriver::Error::UnknownError => e
-            document = mech.agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
-            if document.class == Mechanize::File
-              body = document.body
-            else
-              body = document.body.encode('UTF-8', document.encoding)
-            end
-          end
+        begin
+          raise 'not_use_chromedirver' unless WebStat::Configure.get["use_chromedirver"]
+          body = WebStat::WebDriverHelper.get_source(url)
           @status = 200
-        else
+        rescue
           document = mech.get(url, [], nil, { 'Accept-Language' => 'ja'})
           if document.class == Mechanize::File
             body = document.body

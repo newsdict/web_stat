@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    web_stat (0.4.2)
+    web_stat (0.4.4)
       bundler (>= 2.0.2)
       cld (>= 0.8.0)
       mechanize (>= 2.7)
