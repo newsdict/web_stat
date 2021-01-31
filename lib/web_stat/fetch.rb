@@ -99,7 +99,7 @@ module WebStat
           begin
             body = WebStat::WebDriverHelper.get_source(url)
           rescue Selenium::WebDriver::Error::UnknownError => e
-            document = agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
+            document = mech.agent.get(url, [], nil, { 'Accept-Language' => 'ja'})
             if document.class == Mechanize::File
               body = document.body
             else
