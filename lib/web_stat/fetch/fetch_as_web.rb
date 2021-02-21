@@ -5,7 +5,7 @@ module WebStat
     # initialize class
     # @param [String] url
     def initialize(url)
-      unless url_valid?(url)
+      unless FetchAsWeb.url_valid?(url)
         raise WebStat::INVALID_URL, url
       end
       @url = original_url(url)
@@ -36,11 +36,12 @@ module WebStat
       end
       @nokogiri = ::Nokogiri::HTML(@html)
     end
-    
-    # Validation url
-    def url_valid?(url)
-      regexp = Regexp.new("^https?://([a-zA-Z0-9][a-zA-Z0-9\\\-\.]{1,61}[a-zA-Z0-9])\\\.([a-zA-Z]{2,})(.*)?$", Regexp::IGNORECASE)
-      regexp.match?(url)
-    end 
+    class << self
+      # Validation url
+      def url_valid?(url)
+        regexp = Regexp.new("^https?://([a-z0-9][a-z0-9\\\-\.]{0,61})\\\.([a-z]{2,})(.*)?$", Regexp::IGNORECASE)
+        regexp.match?(url)
+      end
+    end
   end
 end
