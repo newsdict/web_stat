@@ -204,4 +204,9 @@ RSpec.describe WebStat::Fetch do
     expect(WebStat::FetchAsWeb.url_valid?("https://status.cloud.google.com/incident/cloud-functions/19010")).to be true
     expect(WebStat::FetchAsWeb.url_valid?("http://g.co/arts/SK1jZHJpT8N1BGaM7")).to be true
   end
+    
+  it "get_last_modified" do
+    web_stat = WebStat::FetchAsWeb.new("https://newsdict.blog/last_modified_at")
+    web_stat.stat[:last_modified_at] === DateTime.parse("Tue, 05 Apr 2020 07:43:08 JST")
+  end
 end

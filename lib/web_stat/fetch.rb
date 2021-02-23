@@ -1,6 +1,6 @@
 module WebStat
   class Fetch
-    attr_accessor :url, :html, :nokogiri, :userdic, :status
+    attr_accessor :url, :html, :nokogiri, :userdic, :status, :header
     # Get title
     # @return [String] title
     def title
@@ -95,12 +95,13 @@ module WebStat
         if mech.agent.robots_disallowed?(url)
           raise Mechanize::RobotsDisallowedError.new(url)
         end
+        document = mech.get(url, [], nil, { 'Accept-Language' => 'ja'})
+        @header = document.header
         begin
           raise 'not_use_chromedirver' unless WebStat::Configure.get["use_chromedirver"]
           body = WebStat::WebDriverHelper.get_source(url)
           @status = 200
         rescue
-          document = mech.get(url, [], nil, { 'Accept-Language' => 'ja'})
           if document.class == Mechanize::File
             body = document.body
           else
@@ -113,6 +114,23 @@ module WebStat
         @status = e.page.code
       end
       body
+    end
+    
+    # Return Date or last modified header.
+    # @param [String] url
+    # @return DataTime
+    def get_last_modified
+      if @header["date"] && @header["last-modified"]
+        if DateTime.parse(@header["date"]) >= DateTime.parse(@header["last-modified"])
+          DateTime.parse(@header["date"])
+        else
+          DateTime.parse(@header["last-modified"])
+        end
+      elsif @header["date"]
+        DateTime.parse(@header["date"])
+      elsif @header["last-modified"]
+        DateTime.parse(@header["last-modified"])
+      end
     end
 
     # Get the informations of @url
@@ -134,6 +152,7 @@ module WebStat
         language_code: language_code,
         status: @status,
         url: @url,
+        last_modified_at: get_last_modified,
         eyecatch_image_path: save_local_path(eyecatch_image_path),
         tags: tag.nouns
       }

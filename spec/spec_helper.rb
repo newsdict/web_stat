@@ -103,3 +103,9 @@ WebMock.stub_request(:get, "https://cdn.newsdict.jp/assets/newsdict-5d8601394c3f
         status: 200,
         body: File.new(File.join(File.dirname(__FILE__), "fixtures", "images", "newsdict-5d8601394c3f4eea2d7161ab92ab327ac7099e22214c853327011b3a71859b8e.png")),
         headers: {content_type: 'application/html; charset=utf-8'})
+        
+WebMock.stub_request(:get, "https://newsdict.blog/last_modified_at")
+  .to_return(
+    status: 200,
+    body: "ok",
+    headers: {content_type: 'application/html; charset=utf-8', date: "Tue, 05 Apr 2016 07:43:08 GMT", "Last-Modified": "Tue, 05 Apr 2020 07:43:08 JST"})
