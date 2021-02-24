@@ -120,15 +120,16 @@ module WebStat
     # @param [String] url
     # @return DataTime
     def get_last_modified
-      if @header["date"] && @header["last-modified"]
+      @header = @header || {}
+      if @header.has_key?("date") && @header.has_key?("last-modified")
         if DateTime.parse(@header["date"]) >= DateTime.parse(@header["last-modified"])
           DateTime.parse(@header["date"])
         else
           DateTime.parse(@header["last-modified"])
         end
-      elsif @header["date"]
+      elsif @header.has_key?("date")
         DateTime.parse(@header["date"])
-      elsif @header["last-modified"]
+      elsif @header.has_key?("last-modified")
         DateTime.parse(@header["last-modified"])
       end
     end
