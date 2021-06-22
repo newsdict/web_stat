@@ -19,7 +19,7 @@ development: &development
   thumbnail_regex:
     youtube: 'http://img.youtube.com/vi/\1/default.jpg'
   api_keys:
-    youtube: "dummy-key"
+    youtube: AIzaSyCol9v4MJpR-GGkPUqYvMGefY3REDyAOr4
   lang: <%= ENV['LANG'] %>
 test:
   <<: *development
