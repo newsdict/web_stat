@@ -20,6 +20,7 @@ development: &development
     youtube: 'http://img.youtube.com/vi/\1/default.jpg'
   api_keys:
     youtube: "dummy-key"
+  lang: <%= ENV['LANG'] %>
 test:
   <<: *development
 production:

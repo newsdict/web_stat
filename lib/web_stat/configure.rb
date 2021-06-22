@@ -7,9 +7,9 @@ module WebStat
       # Get yaml
       def get
         if defined? Rails
-          YAML.load_file(get_configure_path)[Rails.env]
+          YAML.load(ERB.new(File.read(get_configure_path)).result)[Rails.env]
         else
-          YAML.load_file(get_configure_path)[ENV["ENV"] || "production"]
+          YAML.load(ERB.new(File.read(get_configure_path)).result)[ENV["ENV"] || "production"]
         end
       end
       

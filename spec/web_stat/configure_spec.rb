@@ -26,4 +26,8 @@ RSpec.describe WebStat::Configure do
       end
     end
   end
+  
+  it "Environment variables can be read on YAML" do
+    expect(WebStat::Configure.get["lang"]).to eq "C.UTF-8"
+  end
 end

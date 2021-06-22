@@ -2,6 +2,7 @@ require "bundler"
 
 require 'cld'
 require 'uri'
+require 'erb'
 require 'digest'
 require 'logger'
 require 'sanitize'

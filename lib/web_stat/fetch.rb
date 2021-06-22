@@ -34,7 +34,7 @@ module WebStat
     end
     # Get main section
     def content
-      if @url.match(WebStat::Configure.get["id_extraction_regexs"]["youtube"])
+      if @url&.match(WebStat::Configure.get["id_extraction_regexs"]["youtube"])
         youtube_decscription
       else
         Sanitize.clean(Readability::Document.new(@nokogiri.at('body').to_s).content)
