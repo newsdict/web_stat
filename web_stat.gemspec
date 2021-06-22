@@ -31,6 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "pdf-reader", "2.4.0"
   spec.add_runtime_dependency "webrick", ">= 1.7.0"
   spec.add_runtime_dependency "rexml", ">= 3.2.4"
+  spec.add_runtime_dependency "google-api-client", ">= 0.53.0" 
 
   spec.add_development_dependency "rake", ">= 10.0"
   spec.add_development_dependency "rspec", ">= 3.0"

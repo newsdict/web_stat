@@ -34,7 +34,23 @@ module WebStat
     end
     # Get main section
     def content
-      Sanitize.clean(Readability::Document.new(@nokogiri.at('body').to_s).content)
+      if @url.match(WebStat::Configure.get["id_extraction_regexs"]["youtube"])
+        youtube_decscription
+      else
+        Sanitize.clean(Readability::Document.new(@nokogiri.at('body').to_s).content)
+      end
+    end
+    
+    # Get describe of youtube movie.
+    def youtube_decscription
+      regex_string = WebStat::Configure.get["id_extraction_regexs"]["youtube"]
+      if @url.match(regex_string)
+        id = @url.gsub(%r{#{regex_string}}, '\1')
+        youtube = Google::Apis::YoutubeV3::YouTubeService.new
+        youtube.key = WebStat::Configure.get["api_keys"]["youtube"]
+        response = youtube.list_videos(:snippet, id: id)
+        response.items.first.snippet.description
+      end
     end
 
     # Get temporary path of image
@@ -48,9 +64,9 @@ module WebStat
         end
       end
       # If there is a thumbnail rule, apply it.
-      WebStat::Configure.get["thumbnail_regex"].each do |provider, v|
-        if @url.match(v[0])
-          return @url.gsub(v[0], v[1])
+      WebStat::Configure.get["id_extraction_regexs"].each do |provider, regex_string|
+        if @url.match(regex_string)
+          return @url.gsub(%r{#{regex_string}}, WebStat::Configure.get["thumbnail_regex"][provider])
         end
       end
       readability_content = ::Nokogiri::HTML(Readability::Document.new(@nokogiri.at('body').to_s).content)
@@ -82,6 +98,8 @@ module WebStat
         end
       end
       tmp_file
+    rescue
+      false
     end
 
     # Get url

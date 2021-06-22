@@ -11,6 +11,7 @@ require 'net/http'
 require 'pdf/reader'
 require 'ruby-readability'
 require 'selenium-webdriver'
+require 'google/apis/youtube_v3'
 
 require "helpers/web_drive_helper"
 require "web_stat/final_redirect_url"
@@ -18,6 +19,7 @@ require "web_stat/categorize"
 require "web_stat/configure"
 require "web_stat/errors"
 require "web_stat/fetch"
+
 require "web_stat/tag"
 require "web_stat/version"
 require "web_stat/fetch/fetch_as_html"
