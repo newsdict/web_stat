@@ -1,3 +1,7 @@
+# This repository is out of date. Please refer to the following
+
+-> https://github.com/slidict/web_stat
+
 # WebStat
 
 Fetch the web pages and stat.
