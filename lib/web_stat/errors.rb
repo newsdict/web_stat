@@ -1,3 +1,0 @@
-module WebStat
-  # Unimplemented
-end
